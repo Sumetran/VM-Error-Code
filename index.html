@@ -5,21 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ERROR CODE</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
+            margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #f7f7f7;
             color: #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            overflow: hidden;
+            font-size: clamp(14px, 3vw, 18px); /* ฟอนต์ขนาดปรับอัตโนมัติ */
         }
 
         header {
@@ -27,30 +18,21 @@
             color: #fff;
             text-align: center;
             padding: 1.5rem;
-            font-size: 1.8rem;
+            font-size: clamp(1.2rem, 5vw, 2rem); /* ขนาดฟอนต์ของ header */
             font-weight: bold;
-            width: 100%;
         }
 
         main {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
             padding: 2rem;
-            width: 100%;
-            max-width: 800px;
-            margin-top: 1rem;
+            text-align: center;
         }
 
         .container {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            height: 100%;
-            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         .card {
@@ -59,25 +41,35 @@
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             padding: 2rem;
-            width: 100%;
-            max-width: 600px;
             text-align: left;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
             align-items: flex-start;
-        }
-
-        .card h2 {
-            margin: 0 0 1rem;
-            font-size: 1.5rem;
-            font-weight: bold;
+            min-height: 300px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
         }
 
         .card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .card h2 {
+            margin: 0 0 1rem;
+            font-size: clamp(1rem, 4vw, 1.5rem); /* ปรับขนาดฟอนต์ของหัวข้อ */
+            font-weight: bold;
+            color: #333;
+        }
+
+        footer {
+            background: #333;
+            color: #FFD700;
+            text-align: center;
+            padding: 1rem;
+            font-size: clamp(0.8rem, 2.5vw, 1rem); /* ปรับขนาดฟอนต์ของ footer */
         }
 
         .input-field {
@@ -94,6 +86,8 @@
             color: #555;
             background-color: #f3f3f3;
             min-height: 4rem;
+            resize: none;
+            overflow: hidden;
         }
 
         .input-field:focus {
@@ -107,18 +101,17 @@
         }
 
         .button {
-            background-color: #007bff;
+            background-color: #007bff; /* สีน้ำเงินเข้ม */
             color: #fff;
             padding: 1rem 2rem;
             border: none;
             border-radius: 30px;
-            font-size: 1.2rem;
+            font-size: clamp(1rem, 4vw, 1.2rem); /* ปรับขนาดฟอนต์ของปุ่ม */
             font-weight: bold;
             cursor: pointer;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             margin-top: 1.5rem;
-            width: 100%;
-            max-width: 200px;
+            text-align: center;
         }
 
         .button:hover {
@@ -134,21 +127,18 @@
             padding: 1.5rem;
             margin-top: 2rem;
             text-align: left;
-            width: 100%;
-            max-width: 600px;
         }
 
         .error-details h3 {
-            font-size: 1.3rem;
+            font-size: clamp(1rem, 4vw, 1.3rem); /* ปรับขนาดฟอนต์ของหัวข้อในกรอบรายละเอียด */
             font-weight: bold;
             margin-bottom: 1rem;
         }
 
         .error-details p {
-            font-size: 1rem;
+            font-size: clamp(0.9rem, 3vw, 1rem); /* ปรับขนาดฟอนต์ในข้อความ */
             color: #555;
         }
-
     </style>
 </head>
 <body>
@@ -161,7 +151,8 @@
                 <h2>กรอก Error Code ของคุณ..?</h2>
                 <textarea id="errorInput" class="input-field" placeholder="กรอก Error Code ของคุณที่นี่..."></textarea>
                 <button class="button" onclick="submitError()">ค้นหา</button>
-
+                
+                <!-- กรอบแสดงรายละเอียดและวิธีแก้ไข -->
                 <div id="errorDetails" class="error-details">
                     <h3>รายละเอียดและวิธีแก้ไข</h3>
                     <p id="errorDescription">กรุณากรอก error code เพื่อดูรายละเอียดและวิธีแก้ไข</p>
@@ -175,12 +166,14 @@
 
     <script>
         function submitError() {
-            var error = document.getElementById("errorInput").value;
-            console.log("Error Code ที่กรอกคือ: ", error);
+            var error = document.getElementById("errorInput").value;  // เก็บค่าที่กรอกในตัวแปร error
+            console.log("Error Code ที่กรอกคือ: ", error);  // แสดงค่าผ่าน console
 
+            // แสดงกรอบรายละเอียด
             var errorDetails = document.getElementById("errorDetails");
             var errorDescription = document.getElementById("errorDescription");
 
+            // ตัวอย่างข้อมูลรายละเอียดของ error code (สามารถเพิ่มเติมได้ตามต้องการ)
             var errorMessages = {
                 "404": {
                     description: "ไม่พบหน้าเว็บที่คุณค้นหา",
@@ -193,14 +186,17 @@
                 "403": {
                     description: "คุณไม่มีสิทธิ์เข้าถึงหน้าเว็บนี้",
                     fix: "ตรวจสอบการเข้าสู่ระบบของคุณ หรือขอสิทธิ์จากผู้ดูแลระบบ"
-                }
+                },
+                // สามารถเพิ่ม error codes อื่น ๆ ได้ที่นี่
             };
 
+            // ถ้า error code มีอยู่ในระบบ
             if (errorMessages[error]) {
                 errorDetails.style.display = "block";
                 errorDescription.innerHTML = "<strong>ข้อผิดพลาด:</strong> " + errorMessages[error].description + 
                                              "<br><strong>วิธีแก้ไข:</strong> " + errorMessages[error].fix;
             } else {
+                // ถ้าไม่พบ error code ที่กรอก
                 errorDetails.style.display = "block";
                 errorDescription.innerHTML = "ไม่พบข้อมูลเกี่ยวกับ error code นี้";
             }
